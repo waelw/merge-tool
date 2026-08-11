@@ -9,7 +9,7 @@ report at the end.
 One command — identical on macOS, Linux, and Windows:
 
 ```bash
-npm install -g github:waelw/merge-tool
+npm install -g merge-tool
 ```
 
 Needs **Node.js 18+** and **Git** on your `PATH`; there are no other
