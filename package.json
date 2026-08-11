@@ -6,6 +6,25 @@
   "bin": {
     "merge-tool": "./bin/merge-tool.js"
   },
+  "files": [
+    "bin",
+    "src",
+    "README.md"
+  ],
+  "keywords": [
+    "git",
+    "merge",
+    "branches",
+    "cli"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waelw/merge-tool.git"
+  },
+  "homepage": "https://github.com/waelw/merge-tool#readme",
+  "bugs": {
+    "url": "https://github.com/waelw/merge-tool/issues"
+  },
   "engines": {
     "node": ">=18"
   },

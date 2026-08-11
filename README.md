@@ -4,112 +4,98 @@ Merge multiple git branches into the current branch in one pass. Conflicting
 branches are set aside automatically so the rest keep merging, and you get a
 report at the end.
 
-## Requirements
-
-- **Node.js 18 or newer** — check with `node --version`
-- **Git** — must be on your `PATH`; the tool shells out to the plain `git` CLI
-
-There are no npm dependencies to install.
-
 ## Install
 
-Pick the section for your OS. All three end with a `merge-tool` command on your
-`PATH`.
-
-### macOS
+One command — identical on macOS, Linux, and Windows:
 
 ```bash
-# 1. Prerequisites (skip any you already have)
-brew install node git
-
-# 2. Get the code
-git clone https://github.com/waelw/merge-tool.git
-cd merge-tool
-
-# 3. Put `merge-tool` on your PATH
-npm link
+npm install -g github:waelw/merge-tool
 ```
 
-If `npm link` fails with a permissions error, either fix your npm prefix
-(`npm config set prefix ~/.npm-global` and add `~/.npm-global/bin` to your
-`PATH`) or run it with `sudo npm link`.
-
-### Linux
+Needs **Node.js 18+** and **Git** on your `PATH`; there are no other
+dependencies. That's it — `merge-tool` is now on your `PATH`; verify with:
 
 ```bash
-# 1. Prerequisites (Debian/Ubuntu; use dnf/pacman on other distros)
+merge-tool --help
+```
+
+To upgrade later, run the same install command again. To remove it:
+
+```bash
+npm uninstall -g merge-tool
+```
+
+### Run it without installing
+
+```bash
+npx github:waelw/merge-tool feature-a feature-b
+```
+
+### If you don't have Node or Git yet
+
+<details>
+<summary><b>macOS</b></summary>
+
+```bash
+brew install node git
+```
+
+</details>
+
+<details>
+<summary><b>Linux</b></summary>
+
+```bash
+# Debian/Ubuntu — use dnf/pacman on other distros
 sudo apt update && sudo apt install -y nodejs npm git
-
-# 2. Get the code
-git clone https://github.com/waelw/merge-tool.git
-cd merge-tool
-
-# 3. Put `merge-tool` on your PATH
-npm link
 ```
 
 If your distro ships a Node older than 18, install a current one from
 [NodeSource](https://github.com/nodesource/distributions) or via
 [nvm](https://github.com/nvm-sh/nvm) instead of the distro package.
 
-As on macOS, a permissions error from `npm link` means npm's global prefix
-isn't writable — set a user-owned prefix or use `sudo`.
+</details>
 
-### Windows
+<details>
+<summary><b>Windows</b></summary>
 
-Use **PowerShell** (or Git Bash / WSL, where the Linux instructions apply
-verbatim).
+In PowerShell:
 
 ```powershell
-# 1. Prerequisites (skip any you already have)
 winget install OpenJS.NodeJS.LTS
 winget install Git.Git
-
-# Close and reopen PowerShell so the new PATH entries take effect.
-
-# 2. Get the code
-git clone https://github.com/waelw/merge-tool.git
-cd merge-tool
-
-# 3. Put `merge-tool` on your PATH
-npm link
 ```
 
-`npm link` creates a `merge-tool.cmd` shim in npm's global folder, so the
-command works from PowerShell and `cmd.exe` alike. If PowerShell blocks it with
-*"running scripts is disabled on this system"*, allow local scripts once:
+Close and reopen PowerShell so the new `PATH` entries take effect, then run the
+install command above. npm creates a `merge-tool.cmd` shim, so it works from
+PowerShell and `cmd.exe` alike. If PowerShell blocks it with *"running scripts
+is disabled on this system"*, allow local scripts once:
 
 ```powershell
 Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 ```
 
-### Verify the install
+Git Bash and WSL work too — follow the Linux notes there.
 
-From any directory:
+</details>
 
-```bash
-merge-tool --help
-```
+<details>
+<summary><b>Troubleshooting</b></summary>
 
-If the command isn't found, npm's global bin directory isn't on your `PATH`.
-Print it with `npm bin -g` (older npm) or `npm prefix -g` and add that
-directory (`<prefix>/bin` on macOS/Linux, `<prefix>` on Windows) to your
-`PATH`.
+**`merge-tool: command not found`** — npm's global bin directory isn't on your
+`PATH`. Print it with `npm prefix -g` and add that directory
+(`<prefix>/bin` on macOS/Linux, `<prefix>` on Windows) to your `PATH`.
 
-### Run without installing
-
-If you'd rather not put anything on your `PATH`, call the entrypoint directly
-from a clone:
+**Permission errors during install** — npm's global prefix isn't writable.
+Either point it somewhere you own:
 
 ```bash
-node /path/to/merge-tool/bin/merge-tool.js feature-a feature-b
+npm config set prefix ~/.npm-global   # then add ~/.npm-global/bin to PATH
 ```
 
-### Uninstall
+or prefix the install with `sudo` on macOS/Linux.
 
-```bash
-npm unlink -g merge-tool
-```
+</details>
 
 ## Usage
 
